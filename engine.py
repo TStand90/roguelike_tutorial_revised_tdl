@@ -2,7 +2,7 @@ import tdl
 
 from entity import Entity
 from input_handlers import handle_keys
-from map_functions import make_map
+from map_utils import make_map
 from render_functions import clear_all, render_all
 
 
