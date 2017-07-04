@@ -2,7 +2,7 @@ def render_all(con, entities, game_map, root_console, screen_width, screen_heigh
     # Draw all the tiles in the game map
     for y in range(game_map.height):
         for x in range(game_map.width):
-            wall = game_map.tiles[x][y].block_sight
+            wall = not game_map.transparent[x, y]
 
             if wall:
                 con.draw_char(x, y, None, fg=None, bg=colors.get('dark_wall'))

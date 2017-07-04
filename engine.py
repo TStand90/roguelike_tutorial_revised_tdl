@@ -2,7 +2,7 @@ import tdl
 
 from entity import Entity
 from input_handlers import handle_keys
-from map_objects.game_map import GameMap
+from map_functions import make_map
 from render_functions import clear_all, render_all
 
 
@@ -26,7 +26,8 @@ def main():
     root_console = tdl.init(screen_width, screen_height, title='Roguelike Tutorial Revised')
     con = tdl.Console(screen_width, screen_height)
 
-    game_map = GameMap(map_width, map_height)
+    game_map = tdl.map.Map(map_width, map_height)
+    make_map(game_map)
 
     while not tdl.event.is_window_closed():
         render_all(con, entities, game_map, root_console, screen_width, screen_height, colors)
@@ -53,7 +54,7 @@ def main():
         if move:
             dx, dy = move
 
-            if not game_map.is_blocked(player.x + dx, player.y + dy):
+            if game_map.walkable[player.x + dx, player.y + dy]:
                 player.move(dx, dy)
 
         if exit:
