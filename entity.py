@@ -35,7 +35,7 @@ class Entity:
         dx = path[0][0] - self.x
         dy = path[0][1] - self.y
 
-        if game_map.walkable[path[1][0], path[1][1]] and not get_blocking_entities_at_location(entities, self.x + dx,
+        if game_map.walkable[path[0][0], path[0][1]] and not get_blocking_entities_at_location(entities, self.x + dx,
                                                                                                self.y + dy):
             self.move(dx, dy)
 
