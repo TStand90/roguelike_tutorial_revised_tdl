@@ -275,6 +275,9 @@ def main():
                 break
 
         else:
+            root_console.clear()
+            con.clear()
+            panel.clear()
             play_game(player, entities, game_map, message_log, game_state, root_console, con, panel, constants)
 
             show_main_menu = True
