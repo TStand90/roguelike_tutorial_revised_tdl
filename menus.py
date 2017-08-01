@@ -41,3 +41,21 @@ def inventory_menu(con, root, header, inventory, inventory_width, screen_width, 
         options = [item.name for item in inventory.items]
 
     menu(con, root, header, options, inventory_width, screen_width, screen_height)
+
+
+def main_menu(con, root_console, background_image, screen_width, screen_height, colors):
+    background_image.blit_2x(root_console, 0, 0)
+
+    title = 'TOMBS OF THE ANCIENT KINGS'
+    center = (screen_width - len(title)) // 2
+    root_console.draw_str(center, screen_height // 2 - 4, title, bg=None, fg=colors.get('light_yellow'))
+
+    title = 'By (Your name here)'
+    center = (screen_width - len(title)) // 2
+    root_console.draw_str(center, screen_height - 2, title, bg=None, fg=colors.get('light_yellow'))
+
+    menu(con, root_console, '', ['Play a new game', 'Continue last game', 'Quit'], 24, screen_width, screen_height)
+
+
+def message_box(con, root_console, header, width, screen_width, screen_height):
+    menu(con, root_console, header, [], width, screen_width, screen_height)

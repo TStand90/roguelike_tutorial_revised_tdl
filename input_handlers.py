@@ -99,6 +99,20 @@ def handle_inventory_keys(user_input):
     return {}
 
 
+def handle_main_menu(user_input):
+    if user_input:
+        key_char = user_input.char
+
+        if key_char == 'a':
+            return {'new_game': True}
+        elif key_char == 'b':
+            return {'load_game': True}
+        elif key_char == 'c' or user_input.key == 'ESCAPE':
+            return {'exit': True}
+
+    return {}
+
+
 def handle_mouse(mouse_event):
     if mouse_event:
         (x, y) = mouse_event.cell
