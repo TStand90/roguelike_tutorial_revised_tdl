@@ -1,61 +1,28 @@
-import json
+import os
 
-import jsonpickle
-
-from map_utils import GameMap
+import shelve
 
 
 def save_game(player, entities, game_map, message_log, game_state):
-    data = {
-        'player_index': jsonpickle.encode(entities.index(player)),
-        'entities': jsonpickle.encode(entities),
-        'game_map': jsonpickle.encode(game_map),
-        'message_log': jsonpickle.encode(message_log),
-        'game_state': jsonpickle.encode(game_state)
-    }
-
-    walkable_list = []
-    transparent_list = []
-
-    for y in range(game_map.height):
-        walkable_list_row = []
-        transparent_list_row = []
-
-        for x in range(game_map.width):
-            walkable_list_row.append(game_map.walkable[x, y])
-            transparent_list_row.append(game_map.transparent[x, y])
-
-        walkable_list.append(walkable_list_row)
-        transparent_list.append(transparent_list_row)
-
-    data['walkable'] = walkable_list
-    data['transparent'] = transparent_list
-
-    with open('savegame.json', 'w') as save_file:
-        json.dump(data, save_file, indent=4)
+    with shelve.open('savegame.dat', 'n') as data_file:
+        data_file['player_index'] = entities.index(player)
+        data_file['entities'] = entities
+        data_file['game_map'] = game_map
+        data_file['message_log'] = message_log
+        data_file['game_state'] = game_state
 
 
 def load_game():
-    with open('savegame.json', 'r') as save_file:
-        data = json.load(save_file)
+    if not os.path.isfile('savegame.dat'):
+        raise FileNotFoundError
 
-    player_index = jsonpickle.decode(data['player_index'])
-    entities = jsonpickle.decode(data['entities'])
-    game_map = jsonpickle.decode(data['game_map'])
-    message_log = jsonpickle.decode(data['message_log'])
-    game_state = jsonpickle.decode(data['game_state'])
-
-    walkable = data['walkable']
-    transparent = data['transparent']
+    with shelve.open('savegame.dat', 'r') as data_file:
+        player_index = data_file['player_index']
+        entities = data_file['entities']
+        game_map = data_file['game_map']
+        message_log = data_file['message_log']
+        game_state = data_file['game_state']
 
     player = entities[player_index]
 
-    new_game_map = GameMap(game_map.width, game_map.height)
-    new_game_map.explored = game_map.explored
-
-    for y in range(new_game_map.height):
-        for x in range(new_game_map.width):
-            new_game_map.walkable[x, y] = walkable[y][x]
-            new_game_map.transparent[x, y] = transparent[y][x]
-
-    return player, entities, new_game_map, message_log, game_state
+    return player, entities, game_map, message_log, game_state
