@@ -20,6 +20,59 @@ class GameMap(Map):
         super().__init__(width, height)
         self.explored = [[False for y in range(height)] for x in range(width)]
 
+    def to_json(self):
+        walkable = []
+        transparent = []
+
+        for y in range(self.height):
+            walkable_row = []
+            transparent_row = []
+
+            for x in range(self.width):
+                if self.walkable[x, y]:
+                    walkable_value = True
+                else:
+                    walkable_value = False
+
+                if self.transparent[x, y]:
+                    transparent_value = True
+                else:
+                    transparent_value = False
+
+                walkable_row.append(walkable_value)
+                transparent_row.append(transparent_value)
+
+            walkable.append(walkable_row)
+            transparent.append(transparent_row)
+
+        json_data = {
+            'width': self.width,
+            'height': self.height,
+            'explored': self.explored,
+            'walkable': walkable,
+            'transparent': transparent
+        }
+
+        return json_data
+
+    @staticmethod
+    def from_json(json_data):
+        width = json_data.get('width')
+        height = json_data.get('height')
+        explored = json_data.get('explored')
+        walkable = json_data.get('walkable')
+        transparent = json_data.get('transparent')
+
+        game_map = GameMap(width, height)
+        game_map.explored = explored
+
+        for y in range(height):
+            for x in range(width):
+                game_map.walkable[x, y] = walkable[y][x]
+                game_map.transparent[x, y] = transparent[y][x]
+
+        return game_map
+
 
 class Rect:
     def __init__(self, x, y, w, h):

@@ -38,3 +38,25 @@ class Fighter:
                 self.owner.name.capitalize(), target.name))})
 
         return results
+
+    def to_json(self):
+        json_data = {
+            'max_hp': self.max_hp,
+            'hp': self.hp,
+            'defense': self.defense,
+            'power': self.power
+        }
+
+        return json_data
+
+    @staticmethod
+    def from_json(json_data):
+        max_hp = json_data.get('max_hp')
+        hp = json_data.get('hp')
+        defense = json_data.get('defense')
+        power = json_data.get('power')
+
+        fighter = Fighter(max_hp, defense, power)
+        fighter.hp = hp
+
+        return fighter
