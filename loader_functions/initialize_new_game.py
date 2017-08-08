@@ -92,7 +92,7 @@ def get_constants():
 
 
 def get_game_variables(constants):
-    fighter_component = Fighter(hp=30, defense=2, power=5)
+    fighter_component = Fighter(hp=100, defense=1, power=4)
     inventory_component = Inventory(26)
     level_component = Level()
     player = Entity(0, 0, '@', (255, 255, 255), 'Player', blocks=True, render_order=RenderOrder.ACTOR,
