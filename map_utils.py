@@ -187,7 +187,7 @@ def make_map(game_map, max_rooms, room_min_size, room_max_size, map_width, map_h
 
 
 def next_floor(player, message_log, dungeon_level, constants):
-    game_map = GameMap(constants['map_width'], constants['map_height'], dungeon_level + 1)
+    game_map = GameMap(constants['map_width'], constants['map_height'], dungeon_level)
     entities = [player]
 
     make_map(game_map, constants['max_rooms'], constants['room_min_size'],
