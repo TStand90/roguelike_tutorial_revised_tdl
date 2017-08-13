@@ -33,12 +33,20 @@ def menu(con, root, header, options, width, screen_width, screen_height):
     root.blit(window, x, y, width, height, 0, 0)
 
 
-def inventory_menu(con, root, header, inventory, inventory_width, screen_width, screen_height):
+def inventory_menu(con, root, header, player, inventory_width, screen_width, screen_height):
     # show a menu with each item of the inventory as an option
-    if len(inventory.items) == 0:
+    if len(player.inventory.items) == 0:
         options = ['Inventory is empty.']
     else:
-        options = [item.name for item in inventory.items]
+        options = []
+
+        for item in player.inventory.items:
+            if player.equipment.main_hand == item:
+                options.append('{0} (on main hand)'.format(item.name))
+            elif player.equipment.off_hand == item:
+                options.append('{0} (on off hand)'.format(item.name))
+            else:
+                options.append(item.name)
 
     menu(con, root, header, options, inventory_width, screen_width, screen_height)
 
