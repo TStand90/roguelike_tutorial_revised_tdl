@@ -1,0 +1,21 @@
+[[source]]
+
+url = "https://github.com/trprado/roguelike_tutorial_revised_tdl"
+verify_ssl = true
+name = "roguelike tutorial revised with tdl"
+
+
+[dev-packages]
+
+pylint = "*"
+
+
+[packages]
+
+tdl = "*"
+
+
+
+[requires]
+
+python_version = "3.6"
