@@ -28,8 +28,8 @@ def main():
             if event.type == 'KEYDOWN':
                 user_input = event
                 break
-        else:
-            user_input = None
+            else:
+                user_input = None
 
         if not user_input:
             continue
@@ -44,13 +44,12 @@ def main():
             dx, dy = move
             player_x += dx
             player_y += dy
-
-        if exit:
+        elif exit:
             if tdl.get_fullscreen():
                 tdl.set_fullscreen(False)
             break
 
-        if fullscreen:
+        elif fullscreen:
             tdl.set_fullscreen(not tdl.get_fullscreen())
 
 
