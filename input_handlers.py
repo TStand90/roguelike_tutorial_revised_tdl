@@ -9,7 +9,7 @@ def handle_keys(user_input):
     elif user_input.key == 'RIGHT':
         return {'move': (1, 0)}
 
-    if user_input.key == 'ENTER' and user_input.alt:
+    if user_input.key == 'ENTER' and user_input.control:
         # Alt+Enter: toggle full screen
         return {'fullscreen': True}
     elif user_input.key == 'ESCAPE':
