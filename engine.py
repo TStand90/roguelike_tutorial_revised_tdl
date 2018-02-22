@@ -58,7 +58,9 @@ def main():
             if game_map.walkable[player.x + dx, player.y + dy]:
                 player.move(dx, dy)
         elif exit:
-            return True
+            if tdl.get_fullscreen():
+                tdl.set_fullscreen(False)
+            break
         elif fullscreen:
             tdl.set_fullscreen(not tdl.get_fullscreen())
 
