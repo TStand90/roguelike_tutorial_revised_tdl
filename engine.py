@@ -30,6 +30,8 @@ def main():
     make_map(game_map)
 
     while not tdl.event.is_window_closed():
+        user_input = None
+
         render_all(con, entities, game_map, root_console, screen_width, screen_height, colors)
         tdl.flush()
 
@@ -39,8 +41,8 @@ def main():
             if event.type == 'KEYDOWN':
                 user_input = event
                 break
-        else:
-            user_input = None
+            else:
+                user_input = None
 
         if not user_input:
             continue
@@ -53,14 +55,13 @@ def main():
 
         if move:
             dx, dy = move
-
             if game_map.walkable[player.x + dx, player.y + dy]:
                 player.move(dx, dy)
-
-        if exit:
-            return True
-
-        if fullscreen:
+        elif exit:
+            if tdl.get_fullscreen():
+                tdl.set_fullscreen(False)
+            break
+        elif fullscreen:
             tdl.set_fullscreen(not tdl.get_fullscreen())
 
 
