@@ -16,6 +16,8 @@ def main():
     con = tdl.Console(screen_width, screen_height)
 
     while not tdl.event.is_window_closed():
+        user_input = None
+
         con.draw_char(player_x, player_y, '@', bg=None, fg=(255, 255, 255))
         root_console.blit(con, 0, 0, screen_width, screen_height, 0, 0)
         tdl.flush()
@@ -44,7 +46,9 @@ def main():
             player_y += dy
 
         if exit:
-            return True
+            if tdl.get_fullscreen():
+                tdl.set_fullscreen(False)
+            break
 
         if fullscreen:
             tdl.set_fullscreen(not tdl.get_fullscreen())
